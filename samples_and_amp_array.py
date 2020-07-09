@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.mlab as mlab
 from typing import Tuple
 import librosa
 from IPython.display import Audio
