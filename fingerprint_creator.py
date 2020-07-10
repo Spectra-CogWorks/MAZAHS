@@ -7,6 +7,7 @@ import numpy as np
 
 from scipy.ndimage.filters import maximum_filter
 from scipy.ndimage.morphology import generate_binary_structure
+from scipy.ndimage.morphology import iterate_structure
 
 # `@njit` "decorates" the `_peaks` function. This tells Numba to
 # compile this function using the "low level virtual machine" (LLVM)
