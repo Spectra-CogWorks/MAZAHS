@@ -24,9 +24,11 @@ def add_song(song_name, artist, year, song_path, database_path):
     #load database
     song_metadata, fingerprint_database = db.load_database(database_path)
     #append metadata to the list
-    song_metadata.append((song_name,artist,year))
+    samples = get_mp3_samples(song_path)
+    time = len(samples)/44100
+    song_metadata.append((song_name,artist,year, time))
     #call functions to get samples, create spectrogram, identify peaks, and create fingerprints
-    song_fingerprints = fingerprints_create(local_peak_locations(get_spec(get_mp3_samples(song_path), 44100)))
+    song_fingerprints = fingerprints_create(local_peak_locations(get_spec(samples,44100)))
     #assign song_id (first id is 0)
     song_id = len(song_metadata) - 1
     for fingerprint in song_fingerprints:
