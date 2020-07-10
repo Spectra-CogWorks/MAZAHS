@@ -145,7 +145,7 @@ def fingerprints_create(peaks, fanoutVal=15):
 			# The time_interval is calculated as the time of the fanout_peak minus the time of the initial_peak
 			# Append the tuple to the list (initial_peak, fanout_peak, initial_time, time_interval)
 			# The tuple contains these values initial_peak_freq, fanout_peak_freq, time_interval, initial_time
-			fingerprints.append((peaks[i][1], peaks[n][1], peaks[n][0]-peaks[i][0], peaks[i][0]))
+			fingerprints.append((peaks[i][0], peaks[n][0], peaks[n][1]-peaks[i][1], peaks[i][1]))
 	
 	# Return the fingerprints list
 	return fingerprints
