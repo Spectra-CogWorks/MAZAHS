@@ -1,7 +1,7 @@
 from pathlib import Path
-from samples_and_amp_array.py import get_mp3_samples(file_path), get_spec(samples, sampling_rate)
-from fingerprint_creater.py import local_peaks(spec_samples), fingerprint_create(peaks, fanoutVal)
-from database_load_and_save.py import save_database(metadata, fingerprint_database, path), load_database(path)
+from samples_and_amp_array import get_mp3_samples, get_spec
+from fingerprint_creater import local_peaks, fingerprint_create
+from database_load_and_save import save_database, load_database
 def add_song(song_name, artist, year, path = Path("file1.mp3")):
     """Adds new song to database and stores metadata in metadata list.
 
