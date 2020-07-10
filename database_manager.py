@@ -42,6 +42,7 @@ class DatabaseManager:
 
     Intializes the singleton, loading data from `__path`.
     """
+    print("Loading database...")
     self.metadata, self.fingerprint_database = pickle.load(
       open(DatabaseManager.__path, "rb")
     )
