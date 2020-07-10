@@ -3,13 +3,31 @@ A module to recognize songs by querying the database, tallying matches to songs,
 and using an experimentally determined algorithm to decide the song the sample
 matches to.
 """
-
 # Library imports
 from collections import Counter
 from pathlib import Path
 
 # Module imports
 import database as db
+from samples_and_amp_array import get_mp3_samples, get_mic_samples, get_spec
+from fingerprint_creator import local_peak_locations, fingerprints_create
+
+def test_sample(record_time):
+	"""
+	This function calls all the other functions to determine the songID and offset from samples recorded from the user's microphone
+	
+	Parameters:
+	-----------
+	record_time: Float
+		This is the length of the recording from the user's microphone
+
+	Return:
+	-------
+	
+	"""
+	song_fingerprints = fingerprints_create(local_peak_locations(get_spec(get_mic_samples(record_time), 44100)))
+	
+	return determine_song(tally(song_fingerprints))
 
 def tally(fingerprints):
 	"""
@@ -76,23 +94,26 @@ def determine_song(tallies):
 		The song ID and offset that have the highest number of matches
 	"""
 	# TODO Code the function
-	
 	# ! For now, just use the song and offset with the maximum count
-	# Print chosen song and offset
+	
+	# Highest_count = (count of offsets, offset, song_id)
 	highest_count_info = (0,0,0)
-	#highest_count = (count of offsets, offset, song_id)
+	
 	for song in tallies:
 		offset_counter = tallies[song]
-		offset, count = offset_counter.most_common([1])
-		#Gets the most common offset
+		
+		# Gets the most common offset
+		offset, count = offset_counter.most_common(1)[0]
+		
+		# Unpacks the highest_count tuple
 		high_count, high_offset, high_song = highest_count_info
-		#unpacks the highest_count tuple
+		
+		# If count is higher than the previous highest, updates info for highest count
 		if high_count < count:
 			highest_count_info = (count, offset, song)
-			#if count is higher than the previous highest, updates info for highest count
+		
+	# Unpacks highest count tuple
 	finalcount, finaloffset, song_id = highest_count_info
-	#unpacks highest count tuple
-	return song_id, finaloffset
-	#returns the song id and offset for the highest count
-
 	
+	# Returns the song id and offset for the highest count
+	return song_id, finaloffset
