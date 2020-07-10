@@ -39,9 +39,12 @@ def fingerprint_create(peaks, fanoutVal):
 	assert len(peaks) > fanoutVal, "There are too few peaks to create a fingerprint"
 
 	# Iterate over the peaks array which should be already organized by ascending frequency and time
-	for i in range(len(peaks)-fanoutVal):
+	for i in range(len(peaks)):
 		# Iterate over range(1, fanoutVal+1) to create the fanout pattern
 		for n in range(i+1, i+fanoutVal+1):
+			if n >= len(peaks):
+				break
+				
 			# The time_interval is calculated as the time of the fanout_peak minus the time of the initial_peak
 			# Append the tuple to the list (initial_peak, fanout_peak, initial_time, time_interval)
 			# The tuple contains these values initial_peak_freq, fanout_peak_freq, time_interval, initial_time
