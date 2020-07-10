@@ -26,14 +26,14 @@ def test_sample(record_time):
 	
 	"""
 	song_fingerprints = fingerprints_create(local_peak_locations(get_spec(get_mic_samples(record_time), 44100)))
-	song_id, offset = determine_song(tally(song_fingerprints))
+	song_id, offset, pastcutoff = determine_song(tally(song_fingerprints))
 	
 	# Calculate the offset time using the formula offset_time = recording time * (offset / total samples)
 	total_samples = 44100*record_time
 	offset_time = record_time * (offset/total_samples)
 	
 	# Return the song ID and offset_time
-	return song_id, offset_time
+	return song_id, offset_time, pastcutoff
 
 def tally(fingerprints):
 	"""
@@ -120,8 +120,11 @@ def determine_song(tallies):
 		
 	# Unpacks highest count tuple
 	finalcount, finaloffset, song_id = highest_count_info
-	
+	pastcutoff = False
+	if finalcount > 10:
+		pastcutoff = True
+		
 	print(str(finalcount))
 	
 	# Returns the song id and offset for the highest count
-	return song_id, finaloffset
+	return song_id, finaloffset, pastcutoff
