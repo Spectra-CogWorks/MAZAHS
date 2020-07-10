@@ -19,7 +19,8 @@ args = parser.parse_args()
 
 if args.update:
 	# Update the database
-	add_song(args.title, args.artist, args.year, args.add, args.database)
+	load_database(args.database)
+	add_song(args.title, args.artist, args.year, args.add)
 elif args.list != None:
 	# List the database
 	metadata, fingerprint_database = load_database(args.list)
@@ -31,4 +32,5 @@ elif args.init != None:
 	init_database(args.init)
 else:
 	# Recognize the song
-	path = Path("./database.pickle") if args.database == None else args.database
+	load_database(args.database)
+	
