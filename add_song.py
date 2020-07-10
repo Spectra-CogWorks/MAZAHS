@@ -27,13 +27,14 @@ def add_song(song_name, artist, year, song_path, database_path):
     song_fingerprints = fingerprints_create(local_peak_locations(get_spec(get_mp3_samples(song_path), 44100)), 10)
     #assign song_id (first id is 0)
     song_id = len(song_metadata) - 1
+    print(fingerprint_database)
     for fingerprint in song_fingerprints:
         #unpack fingerprint and repack into key and value
         fi, fj, delta_t, abs_time = fingerprint
         key = (fi, fj, delta_t)
         value = (song_id, abs_time)
         #add fingerprint data to fingerprint_database
-        if key in fingerprint_database:
+        if key in fingerprint_database and fingerprint_database[key] is not None:
             fingerprint_database[key] = fingerprint_database[key].append(value)
         else:
             fingerprint_database[key] = [value]
