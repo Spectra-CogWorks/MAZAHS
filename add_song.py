@@ -1,4 +1,7 @@
 from pathlib import Path
+from samples_and_amp_array.py import get_mp3_samples(file_path), get_spec(samples, sampling_rate)
+from fingerprint_creater.py import local_peaks(spec_samples), fingerprint_create(peaks, fanoutVal)
+from database_load_and_save.py import save_database(metadata, fingerprint_database, path), load_database(path)
 def add_song(song_name, artist, year, path = Path("file1.mp3")):
     """Adds new song to database and stores metadata in metadata list.
 
@@ -16,16 +19,25 @@ def add_song(song_name, artist, year, path = Path("file1.mp3")):
     Returns
     -------
     None"""
-    
+    database_pathway = '' #insert path here
+    #load database
+    (song_metadata, fingerprint_database) = load_database(database_pathway)
+    #append metadata to the list
     song_metadata.append((song_name,artist,year))
-    
-    #run mp3 to samples function
-    #run sample to spectogram function
-    #run peak finding function
-    #run fingerprint creation function with output ((fi, fj, delta_t, abs_time))
-    #make song id
-    #add song to dictionary with key: (fi, fj, delta_t) and value: List of tuple with song_id and abs_time
-    
-    
+    #call functions to get samples, create spectrogram, identify peaks, and create fingerprint
+    (fi, fj, delta_t, abs_time) = fingerprint_create(local_peaks(get_spec(get_mp3_samples(path), 44100)), 10)
+    #assign song_id
+    song_id = len(song_metadata) 
+    #add song data to fingerprint_database
+    key = (fi, fj, delta_t)
+    value = (song_id, abs_time)
+    if key in fingerprint_database:
+        fingerprint_database[key] = fingerprint_database[key].append(value)
+    else:
+        fingerprint_database[key] = [value]
+        #save database
+    save_database(song_metadata,fingerprint_database, database_pathway)
+    #DONE
     return None
+    
     
