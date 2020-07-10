@@ -41,15 +41,11 @@ def fingerprint_create(peaks, fanoutVal):
 	# Iterate over the peaks array which should be already organized by ascending frequency and time
 	for i in range(len(peaks)-fanoutVal):
 		# Iterate over range(1, fanoutVal+1) to create the fanout pattern
-		for n in range(1, fanoutVal+1):
-			# To ensure that the peaks not being divisible by the fanout value doesn't cause an error
-			if n >= len(peaks):
-				break
-			
+		for n in range(i+1, i+fanoutVal+1):
 			# The time_interval is calculated as the time of the fanout_peak minus the time of the initial_peak
 			# Append the tuple to the list (initial_peak, fanout_peak, initial_time, time_interval)
 			# The tuple contains these values initial_peak_freq, fanout_peak_freq, time_interval, initial_time
-			fingerprints.append((peaks[i][1], peaks[i+n][1], peaks[i+n][0]-peaks[i][0], peaks[i][0]))
+			fingerprints.append((peaks[i][1], peaks[n][1], peaks[n][0]-peaks[i][0], peaks[i][0]))
 	
 	# Return the fingerprints list
 	return fingerprints
