@@ -103,6 +103,7 @@ def determine_song(tallies):
 		offset_counter = tallies[song]
 		
 		# Gets the most common offset
+		print(offset_counter.most_common(1))
 		offset, count = offset_counter.most_common(1)[0]
 		
 		# Unpacks the highest_count tuple
