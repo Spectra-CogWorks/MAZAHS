@@ -38,15 +38,15 @@ def get_mp3_samples(file_path):
     return rescale(samples, -2**15, 2**15)
 
 # obtaining the spectrogram for the waveform
-sampling_rate = 44100  # sampling rate in Hz
+sampling_rate = 44100 # or set to whatever
 
-S, freqs, times = mlab.specgram(
-    samples,
-    NFFT=4096,
-    Fs=sampling_rate,
-    window=mlab.window_hanning,
-    noverlap=int(4096 / 2),
-    mode='magnitude'
-)
-
-S = data_2d
+def get_spec(samples, sampling_rate):
+    S, freqs, times = mlab.specgram(
+        samples,
+        NFFT=4096,
+        Fs=sampling_rate,
+        window=mlab.window_hanning,
+        noverlap=int(4096 / 2),
+        mode='magnitude'
+    )
+    return S
