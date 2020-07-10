@@ -1,4 +1,5 @@
 import pickle
+from database_manager import DatabaseManager
 
 def save_database(metadata, fingerprint_database, path):
 	"""Saves metadata and fingerprint database to a file.
@@ -35,7 +36,7 @@ def init_database(path):
 	pickle.dump(([], {}), open(path, "wb"))
 	print("Saved!")
 
-def load_database(path):
+def load_database(path=None):
 	"""Load metadata and fingerprint database from a file.
 
 	Load `metadata` and `fingerprint_database` from file specified by `path`.
@@ -53,4 +54,8 @@ def load_database(path):
 		described for `save_database`
 	"""
 	print("Loading database...")
-	return pickle.load(open(path, "rb"))
+	DatabaseManager.set_path(path)
+	return (
+		DatabaseManager.default().metadata,
+		DatabaseManager.default().fingerprint_database
+	)
