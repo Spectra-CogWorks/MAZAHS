@@ -21,6 +21,20 @@ def save_database(metadata, fingerprint_database, path):
 	pickle.dump((metadata, fingerprint_database), open(path, "wb"))
 	print("Saved!")
 
+def init_database(path):
+	"""Initalizes a new song database.
+
+	Initializes a song database in a file specified by `path`.
+
+	Parameters
+	----------
+	path : Path
+		The path to save the database file to
+	"""
+	print("Saving to disk...")
+	pickle.dump(([], {}), open(path, "wb"))
+	print("Saved!")
+
 def load_database(path):
 	"""Load metadata and fingerprint database from a file.
 
