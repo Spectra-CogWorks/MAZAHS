@@ -1,5 +1,6 @@
 """
-Module to find and analyze peaks in spectrogram data for sound samples and create fingerprints for samples using pattern fanouts
+Module to find and analyze peaks in spectrogram data for sound samples
+and create fingerprints for samples using pattern fanouts
 """
 
 from numba import njit
@@ -66,7 +67,8 @@ def _peaks(data_2d, rows, cols, amp_min):
             peaks.append((r, c))
     return peaks
 
-def local_peak_locations(data_2d, neighborhood=iterate_structure(generate_binary_structure(2,1), 20), peak_threshold=0):
+
+def local_peak_locations(data_2d, threshold_percentile=75):
     """
     Defines a local neighborhood and finds the local peaks
     in the spectrogram, which must be larger than the specified `peak_threshold`.
@@ -77,14 +79,9 @@ def local_peak_locations(data_2d, neighborhood=iterate_structure(generate_binary
         The 2D array of data in which local peaks will be detected.
         Comes from the spectrogram.
     
-    neighborhood : numpy.ndarray, shape-(h, w)
-        A boolean mask indicating the "neighborhood" in which each
-        datum will be assessed to determine whether or not it is
-        a local peak. h and w must be odd-valued numbers
-        
-    amp_min : float
-        All amplitudes at and below this value are excluded from being local 
-        peaks.
+    threshold_percentile : int
+        The percentile at which we are distinguishing between the foreground 
+        and background data.
     
     Returns
     -------
@@ -95,6 +92,9 @@ def local_peak_locations(data_2d, neighborhood=iterate_structure(generate_binary
     -----
     The local peaks are returned in column-major order.
     """
+    peak_threshold = np.percentile(data_2d, threshold_percentile)
+    neighborhood= iterate_structure(generate_binary_structure(2,1), 20)
+
     rows, cols = np.where(neighborhood)
     assert neighborhood.shape[0] % 2 == 1
     assert neighborhood.shape[1] % 2 == 1
