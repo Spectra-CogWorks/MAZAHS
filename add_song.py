@@ -2,6 +2,8 @@ from pathlib import Path
 from samples_and_amp_array import get_mp3_samples, get_spec
 from fingerprint_creator import local_peak_locations, fingerprints_create
 from database import save_database, load_database
+import database as db
+
 def add_song(song_name, artist, year, song_path, database_path):
     """Adds new song to database and stores metadata in metadata list.
 
@@ -20,7 +22,7 @@ def add_song(song_name, artist, year, song_path, database_path):
     -------
     None"""
     #load database
-    song_metadata, fingerprint_database = load_database(database_path)
+    song_metadata, fingerprint_database = db.load_database(database_path)
     #append metadata to the list
     song_metadata.append((song_name,artist,year))
     #call functions to get samples, create spectrogram, identify peaks, and create fingerprints
@@ -38,6 +40,6 @@ def add_song(song_name, artist, year, song_path, database_path):
         else:
             fingerprint_database[key] = [value]
     #save database
-    save_database(song_metadata,fingerprint_database, database_path)
+    db.save_database(song_metadata,fingerprint_database, database_path)
     #DONE
     return None
