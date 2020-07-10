@@ -40,7 +40,7 @@ def get_mp3_samples(file_path):
 # obtaining the spectrogram for the waveform
 sampling_rate = 44100 # or set to whatever
 
-def get_spec(sampling_rate):
+def get_spec(samples, sampling_rate):
     S, freqs, times = mlab.specgram(
         samples,
         NFFT=4096,
