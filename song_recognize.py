@@ -69,7 +69,7 @@ def tally(fingerprints):
 				# Add to the appropriate counters in tallies by giving song ID then using the offset to add to the 
 				# appropriate entry
 				# Also checking to make sure that songId
-				songId = matches[0]
+				songId = match[0]
 				if songId in tallies:
 					tallies[songId][offset] += 1
 				else:
