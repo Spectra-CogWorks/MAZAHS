@@ -29,6 +29,7 @@ def test_sample(record_time):
 	song_fingerprints = fingerprints_create(local_peak_locations(get_spec(get_mic_samples(record_time), 44100)))
 	song_id, offset, pastcutoff = determine_song(tally(song_fingerprints))
 	
+	# ! This is not possible to calculate and is not printed out
 	# Calculate the offset time using the formula offset_time = total song time * (offset / total song samples)
 	# total song samples = 44100 * total song time
 	a, b, c, time = song_metadata[song_id]
