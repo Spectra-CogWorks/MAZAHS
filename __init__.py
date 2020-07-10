@@ -2,6 +2,7 @@ import argparse
 from pathlib import Path
 from add_song import add_song
 from database import init_database, load_database
+from song_recognize import test_sample
 
 # Set up parameters
 parser = argparse.ArgumentParser(description="Automatically recognize songs")
@@ -32,4 +33,11 @@ elif args.init != None:
 else:
 	# Recognize the song
 	load_database(args.database)
-	
+	song_id, offset, past_cutoff = test_sample(10)
+
+	if not past_cutoff:
+		print("Song not in database, closest match:")
+
+	metadata, fingerprint_database = load_database(args.database)
+	name, artist, year, time = metadata[song_id]
+	print(f"{name} by {artist} ({year})")
