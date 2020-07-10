@@ -8,7 +8,7 @@ def local_peaks(spec_samples):
 	# ! Delete this pass
 	pass
 
-def fingerprint_create(peaks, fanoutVal):
+def fingerprints_create(peaks, fanoutVal):
 	"""
 	Creates a fingerprint by creating a list of fanout patterns based on each peak traversed in order of 
 	ascending frequency and then time
@@ -32,7 +32,7 @@ def fingerprint_create(peaks, fanoutVal):
 	# // TODO Test the function with sample data and fix bugs
 	# // TODO Optimize the code once the base design is working and has base functionality
 	
-	# Initialize the fingerprints array
+	# Initialize the fingerprints list
 	fingerprints = []
 	
 	# Check that there are enough peaks for the fanout value otherwise return a more informative error
