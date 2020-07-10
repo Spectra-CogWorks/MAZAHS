@@ -1,3 +1,5 @@
+import pickle
+
 def save_database(metadata, fingerprint_database, path):
 	"""Saves metadata and fingerprint database to a file.
 
@@ -15,7 +17,7 @@ def save_database(metadata, fingerprint_database, path):
 	path : Path
 		The path to save the database file to
 	"""
-	pass
+	pickle.dump((metadata, fingerprint_database), path)
 
 def load_database(path):
 	"""Load metadata and fingerprint database from a file.
@@ -34,4 +36,4 @@ def load_database(path):
 		Tuple containing song metadata and the fingerprint database as
 		described for `save_database`
 	"""
-	pass
+	return pickle.load(path)
