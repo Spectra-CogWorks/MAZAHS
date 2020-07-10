@@ -24,6 +24,7 @@ def add_song(song_name, artist, year, song_path, database_path):
     #load database
     song_metadata, fingerprint_database = db.load_database(database_path)
     #append metadata to the list
+    #calculate song runtime from samples
     samples = get_mp3_samples(song_path)
     time = len(samples)/44100
     song_metadata.append((song_name,artist,year, time))
