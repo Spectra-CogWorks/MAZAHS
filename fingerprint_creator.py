@@ -65,7 +65,7 @@ def _peaks(data_2d, rows, cols, amp_min):
             peaks.append((r, c))
     return peaks
 
-def local_peak_locations(data_2d, neighborhood=generate_binary_structure(2,1), peak_threshold=0):
+def local_peak_locations(data_2d, neighborhood=iterate_structure(generate_binary_structure(2,1), 20), peak_threshold=0):
     """
     Defines a local neighborhood and finds the local peaks
     in the spectrogram, which must be larger than the specified `peak_threshold`.
@@ -104,7 +104,7 @@ def local_peak_locations(data_2d, neighborhood=generate_binary_structure(2,1), p
     
     return _peaks(data_2d, rows, cols, amp_min=peak_threshold)
 
-def fingerprints_create(peaks, fanoutVal):
+def fingerprints_create(peaks, fanoutVal=15):
 	"""
 	Creates a fingerprint by creating a list of fanout patterns based on each peak traversed in order of 
 	ascending frequency and then time
