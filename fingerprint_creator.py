@@ -100,7 +100,7 @@ def local_peak_locations(data_2d, neighborhood, peak_threshold):
     
     return _peaks(data_2d, rows, cols, amp_min=peak_threshold)
 
-def fingerprint_create(peaks, fanoutVal):
+def fingerprints_create(peaks, fanoutVal):
 	"""
 	Creates a fingerprint by creating a list of fanout patterns based on each peak traversed in order of 
 	ascending frequency and then time
@@ -124,7 +124,7 @@ def fingerprint_create(peaks, fanoutVal):
 	# // TODO Test the function with sample data and fix bugs
 	# // TODO Optimize the code once the base design is working and has base functionality
 	
-	# Initialize the fingerprints array
+	# Initialize the fingerprints list
 	fingerprints = []
 	
 	# Check that there are enough peaks for the fanout value otherwise return a more informative error
