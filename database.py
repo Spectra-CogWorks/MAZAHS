@@ -8,7 +8,7 @@ def save_database(metadata, fingerprint_database, path):
 
 	Parameters
 	----------
-	metadata : List[Tuple[str, str, str]]
+	metadata : List[Tuple[str, str, str, float]]
 		List of song song metadata as tuples of the form (name, artist, year)
 
 	fingerprint_database : Dict[Tuple[int, int, int], Tuple[int, int]]
@@ -48,12 +48,11 @@ def load_database(path=None):
 
 	Returns
 	-------
-	database : Tuple[List[Tuple[str, str, str]], 
+	database : Tuple[List[Tuple[str, str, str, float]], 
 		Dict[Tuple[int, int, int], Tuple[int, int]]]
 		Tuple containing song metadata and the fingerprint database as
 		described for `save_database`
 	"""
-	print("Loading database...")
 	DatabaseManager.set_path(path)
 	return (
 		DatabaseManager.default().metadata,
