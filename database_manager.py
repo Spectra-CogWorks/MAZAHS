@@ -3,11 +3,12 @@ from pathlib import Path
 
 class DatabaseManager:
   __default = False
-  __path = Path("./databse.pickle")
+  __path = Path("./database.pickle")
 
   @staticmethod
   def set_path(path):
-    DatabaseManager.__path = path
+    if path != None:
+      DatabaseManager.__path = path
 
   @staticmethod
   def default():
