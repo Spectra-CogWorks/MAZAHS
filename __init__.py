@@ -12,13 +12,14 @@ parser.add_argument("--add", "-a", type=Path, help="Path to MP3 file to add")
 parser.add_argument("--title", "-t", help="Song title to add")
 parser.add_argument("--artist", "-A", help="Song artist to add")
 parser.add_argument("--year", "-y", help="Song year to add")
+parser.add_argument("--database", "-d", type=Path, help="Use alternate database path when recognizing")
 
 # Get args
 args = parser.parse_args()
 
 if args.update:
 	# Update the database
-	add_song(args.title, args.artist, args.year, args.add)
+	add_song(args.title, args.artist, args.year, args.add, args.database)
 elif args.list != None:
 	# List the database
 	metadata, fingerprint_database = load_database(args.list)
@@ -30,4 +31,4 @@ elif args.init != None:
 	init_database(args.init)
 else:
 	# Recognize the song
-	pass
+	path = Path("./database.pickle") if args.database == None else args.database
