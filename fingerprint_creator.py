@@ -4,6 +4,9 @@ Module to find and analyze peaks in spectrogram data for sound samples and creat
 
 from numba import njit
 
+from scipy.ndimage.filters import maximum_filter
+from scipy.ndimage.morphology import generate_binary_structure
+
 # `@njit` "decorates" the `_peaks` function. This tells Numba to
 # compile this function using the "low level virtual machine" (LLVM)
 # compiler. The resulting object is a Python function that, when called,
@@ -61,7 +64,7 @@ def _peaks(data_2d, rows, cols, amp_min):
             peaks.append((r, c))
     return peaks
 
-def local_peak_locations(data_2d, neighborhood, peak_threshold):
+def local_peak_locations(data_2d, neighborhood=generate_binary_structure(2,1), peak_threshold=0):
     """
     Defines a local neighborhood and finds the local peaks
     in the spectrogram, which must be larger than the specified `peak_threshold`.
