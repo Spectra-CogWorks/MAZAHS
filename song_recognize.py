@@ -115,5 +115,7 @@ def determine_song(tallies):
 	# Unpacks highest count tuple
 	finalcount, finaloffset, song_id = highest_count_info
 	
+	print(str(finalcount))
+	
 	# Returns the song id and offset for the highest count
 	return song_id, finaloffset
