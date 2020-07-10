@@ -3,6 +3,7 @@ Module to find and analyze peaks in spectrogram data for sound samples and creat
 """
 
 from numba import njit
+import numpy as np
 
 from scipy.ndimage.filters import maximum_filter
 from scipy.ndimage.morphology import generate_binary_structure
