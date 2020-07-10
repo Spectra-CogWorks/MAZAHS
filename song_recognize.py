@@ -99,6 +99,8 @@ def determine_song(tallies):
 	# Highest_count = (count of offsets, offset, song_id)
 	highest_count_info = (0,0,0)
 	
+	print(tallies)
+	
 	for song in tallies:
 		offset_counter = tallies[song]
 		
